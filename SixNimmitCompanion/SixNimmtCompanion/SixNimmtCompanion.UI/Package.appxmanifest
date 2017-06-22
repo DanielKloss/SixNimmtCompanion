@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="17883DanielKloss.423170DB71AB8" Publisher="CN=3B8E0F1D-3F0A-4DA8-BE65-FBCEF577B52B" Version="1.1.0.0" />
+  <Identity Name="17883DanielKloss.423170DB71AB8" Publisher="CN=3B8E0F1D-3F0A-4DA8-BE65-FBCEF577B52B" Version="3.1.1.0" />
   <mp:PhoneIdentity PhoneProductId="3c99dec9-4237-4840-b2d5-5b560042f4f8" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>6 Nimmt! Companion</DisplayName>

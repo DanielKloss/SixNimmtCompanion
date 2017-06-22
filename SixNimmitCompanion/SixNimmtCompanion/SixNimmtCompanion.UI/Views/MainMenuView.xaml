@@ -24,7 +24,7 @@
 
             <CommandBar Grid.Row="0" Style="{StaticResource TopCommandBarStyle}">
                 <CommandBar.Content>
-                    <TextBlock Text="Six Nimmt Companion" Style="{StaticResource TitleTextStyle}"/>
+                    <TextBlock Text="6 Nimmt! Companion" Style="{StaticResource TitleTextStyle}"/>
                 </CommandBar.Content>
             </CommandBar>
 

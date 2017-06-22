@@ -20,53 +20,41 @@
         </Storyboard>
     </Page.Resources>
 
-    <Page.BottomAppBar>
-        <CommandBar x:Name="bottomCommandBar" IsEnabled="{Binding newRound, Converter={StaticResource booleanReverserConverter}}">
-            <AppBarButton Icon="Cancel" Label="Delete Game" Command="{Binding cancelGameCommand}"/>
-            <AppBarButton Icon="Accept" Label="Finish Game" Command="{Binding finishGameCommand}"/>
-            <AppBarButton Icon="Forward" Label="Next Round" Command="{Binding nextRoundCommand}"/>
-        </CommandBar>
-    </Page.BottomAppBar>
-
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
+    <RelativePanel>
         <Interactivity:Interaction.Behaviors>
             <Core:DataTriggerBehavior Binding="{Binding newRound}" Value="True">
                 <Media:ControlStoryboardAction Storyboard="{StaticResource newRound}"/>
             </Core:DataTriggerBehavior>
         </Interactivity:Interaction.Behaviors>
 
-        <StackPanel Grid.Row="0">
-            <CommandBar x:Name="topCommandBar" Style="{StaticResource TopCommandBarStyle}">
-                <CommandBar.Content>
-                    <TextBlock Style="{StaticResource TitleTextStyle}">
+        <CommandBar x:Name="topCommandBar" Style="{StaticResource TopCommandBarStyle}"
+                    RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+            <CommandBar.Content>
+                <TextBlock Style="{StaticResource TitleTextStyle}">
                     <Run Text="Round"/>
                     <Run Text="{Binding game.round}"/>
-                    </TextBlock>
-                </CommandBar.Content>
-            </CommandBar>
+                </TextBlock>
+            </CommandBar.Content>
+        </CommandBar>
 
-            <Grid x:Name="gameSetting">
-                <TextBlock Style="{StaticResource ShadowTextStyle}" Visibility="{Binding game.isPointsBased, Converter={StaticResource booleanToVisibilityConverter}}"
+        <Grid x:Name="gameSetting"
+              RelativePanel.Below="topCommandBar" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+            <TextBlock Style="{StaticResource ShadowTextStyle}" Visibility="{Binding game.isPointsBased, Converter={StaticResource booleanToVisibilityConverter}}"
                        HorizontalAlignment="Center">
             <Run Text="Playing to"/>
             <Run Text="{Binding game.length}"/>
             <Run Text="points"/>
-                </TextBlock>
-                <TextBlock Style="{StaticResource ShadowTextStyle}" Visibility="{Binding game.isPointsBased, Converter={StaticResource reversedBooleanToVisibilityConverter}}"
+            </TextBlock>
+            <TextBlock Style="{StaticResource ShadowTextStyle}" Visibility="{Binding game.isPointsBased, Converter={StaticResource reversedBooleanToVisibilityConverter}}"
                        HorizontalAlignment="Center">
             <Run Text="Playing for"/>
             <Run Text="{Binding game.length}"/>
             <Run Text="rounds"/>
-                </TextBlock>
-            </Grid>
-        </StackPanel>
+            </TextBlock>
+        </Grid>
 
-        <ScrollViewer x:Name="scroller" Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer x:Name="scroller" Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                      RelativePanel.Below="gameSetting" RelativePanel.Above="bottomCommandBar" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
             <ListView x:Name="playersList" ItemsSource="{Binding game.players}" SelectedItem="{Binding game.currentPlayer, Mode=TwoWay}" ItemContainerStyle="{StaticResource NoBorderListViewStyle}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -99,7 +87,8 @@
         </ScrollViewer>
 
         <Grid x:Name="roundChangeBackground" Grid.Row="0" Grid.RowSpan="2" Background="{StaticResource PrimaryColourBrush}" Opacity="0"
-              Visibility="{Binding newRound, Converter={StaticResource booleanToVisibilityConverter}}">
+              Visibility="{Binding newRound, Converter={StaticResource booleanToVisibilityConverter}}"
+              RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True">
             <StackPanel x:Name="roundMarker" VerticalAlignment="Center" Margin="12,0,12,0" Padding="12" Background="White"
                         RenderTransformOrigin="0.5,0.5">
                 <StackPanel.RenderTransform>
@@ -112,5 +101,12 @@
                 </TextBlock>
             </StackPanel>
         </Grid>
-    </Grid>
+        
+        <CommandBar x:Name="bottomCommandBar" IsEnabled="{Binding newRound, Converter={StaticResource booleanReverserConverter}}"
+                    RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True">
+            <AppBarButton Icon="Cancel" Label="Delete Game" Command="{Binding cancelGameCommand}"/>
+            <AppBarButton Icon="Accept" Label="Finish Game" Command="{Binding finishGameCommand}"/>
+            <AppBarButton Icon="Forward" Label="Next Round" Command="{Binding nextRoundCommand}"/>
+        </CommandBar>
+    </RelativePanel>
 </Page>

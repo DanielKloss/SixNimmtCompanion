@@ -7,42 +7,43 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Page.BottomAppBar>
-        <CommandBar x:Name="bottomCommandBar" IsEnabled="{Binding commandBarEnabled}">
-            <AppBarButton Icon="Setting" Label="Game Settings" Command="{Binding changeGameSettingsPopupCommand}" />
-            <AppBarButton Icon="Add" Label="Add Player" Command="{Binding createPlayerCommand}" />
-            <AppBarButton Icon="Forward" Label="Start Game" Command="{Binding startGameCommand}"/>
-        </CommandBar>
-    </Page.BottomAppBar>
-
-    <StackPanel>
-        <CommandBar x:Name="topCommandBar" Style="{StaticResource TopCommandBarStyle}">
+    <RelativePanel>
+        <CommandBar x:Name="topCommandBar" Style="{StaticResource TopCommandBarStyle}"
+                    RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
             <CommandBar.Content>
                 <TextBlock Text="Setup Game" Style="{StaticResource TitleTextStyle}"/>
             </CommandBar.Content>
         </CommandBar>
 
-        <ScrollViewer x:Name="players" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-            <Grid>
-                <ListView ItemsSource="{Binding allPlayers, Mode=TwoWay}"
-                          Margin="4,4,4,4">
-                    <ListView.ItemContainerStyle>
-                        <StaticResource ResourceKey="NoBorderListViewStyle"/>
-                    </ListView.ItemContainerStyle>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <CheckBox IsChecked="{Binding selectedToPlay, Mode=TwoWay}" Content="{Binding name}"
-                                  Margin="8,0,8,0" Template="{StaticResource CheckBoxControlTemplate}"/>
-                                <Button Command="{Binding DataContext.deletePlayerCommand, ElementName=pageRoot}" CommandParameter="{Binding}" HorizontalAlignment="Right" Margin="0,0,12,0" Template="{StaticResource DeleteButtonStyle}"/>
-                                <Button Command="{Binding DataContext.editPlayerCommand, ElementName=pageRoot}" CommandParameter="{Binding}" HorizontalAlignment="Right" Margin="0,0,52,0" Template="{StaticResource EditButtonStyle}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <TextBlock Text="You need players to play a game! Create some to get started" Visibility="{Binding allPlayers.Count, Converter={StaticResource reversedBooleanToVisibilityConverter}}"
-                       Style="{StaticResource ShadowTextStyle}" Margin="12,8,12,0"/>
-            </Grid>
+        <ScrollViewer x:Name="players" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden"
+                      RelativePanel.Below="topCommandBar" RelativePanel.Above="bottomCommandBar" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+            <ListView ItemsSource="{Binding allPlayers, Mode=TwoWay}"
+                      Margin="4,4,4,4">
+                <ListView.ItemContainerStyle>
+                    <StaticResource ResourceKey="NoBorderListViewStyle"/>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <CheckBox IsChecked="{Binding selectedToPlay, Mode=TwoWay}" Content="{Binding name}"
+                                      Margin="8,0,8,0" Template="{StaticResource CheckBoxControlTemplate}"/>
+                            <Button Command="{Binding DataContext.deletePlayerCommand, ElementName=pageRoot}" CommandParameter="{Binding}" HorizontalAlignment="Right" Margin="0,0,12,0" Template="{StaticResource DeleteButtonStyle}"/>
+                            <Button Command="{Binding DataContext.editPlayerCommand, ElementName=pageRoot}" CommandParameter="{Binding}" HorizontalAlignment="Right" Margin="0,0,52,0" Template="{StaticResource EditButtonStyle}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </ScrollViewer>
-    </StackPanel>
+
+        <TextBlock Text="You need players to play a game! Create some to get started" Visibility="{Binding allPlayers.Count, Converter={StaticResource reversedBooleanToVisibilityConverter}}"
+                   Style="{StaticResource ShadowTextStyle}" Margin="12,8,12,0"
+                   RelativePanel.Below="topCommandBar" RelativePanel.Above="bottomCommandBar" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+
+        <CommandBar x:Name="bottomCommandBar" IsEnabled="{Binding commandBarEnabled}"
+                    RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True">
+            <AppBarButton Icon="Setting" Label="Game Settings" Command="{Binding changeGameSettingsPopupCommand}" />
+            <AppBarButton Icon="Add" Label="Add Player" Command="{Binding createPlayerCommand}" />
+            <AppBarButton Icon="Forward" Label="Start Game" Command="{Binding startGameCommand}"/>
+        </CommandBar>
+    </RelativePanel>
 </Page>

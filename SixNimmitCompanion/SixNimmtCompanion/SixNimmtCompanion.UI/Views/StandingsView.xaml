@@ -6,20 +6,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Page.BottomAppBar>
-        <CommandBar x:Name="bottomCommandBar" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True">
-            <AppBarButton Icon="Accept" Label="Finish" Command="{Binding finishCommand}"/>
-        </CommandBar>
-    </Page.BottomAppBar>
-
-    <StackPanel>
-        <CommandBar x:Name="topCommandBar" Style="{StaticResource TopCommandBarStyle}">
+    <RelativePanel>
+        <CommandBar x:Name="topCommandBar" Style="{StaticResource TopCommandBarStyle}"
+                    RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
             <CommandBar.Content>
                 <TextBlock Text="Final Scores" Style="{StaticResource TitleTextStyle}"/>
             </CommandBar.Content>
         </CommandBar>
 
-        <ScrollViewer x:Name="scrollViewer" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+        <ScrollViewer x:Name="scrollViewer" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.Below="topCommandBar" RelativePanel.Above="bottomCommandBar">
             <ListView x:Name="playersList" ItemsSource="{Binding game.players}">
                 <ListView.ItemContainerStyle>
                     <StaticResource ResourceKey="NoBorderListViewStyle"/>
@@ -65,5 +61,8 @@
                 </ListView.ItemTemplate>
             </ListView>
         </ScrollViewer>
-    </StackPanel>
+        <CommandBar x:Name="bottomCommandBar" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True">
+            <AppBarButton Icon="Accept" Label="Finish" Command="{Binding finishCommand}"/>
+        </CommandBar>
+    </RelativePanel>
 </Page>
